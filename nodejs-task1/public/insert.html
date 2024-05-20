@@ -1,0 +1,45 @@
+<!-- src/public/insert.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert Movie</title>
+</head>
+<body>
+    <h1>Insert Movie</h1>
+    <form id="insertForm">
+        Title: <input type="text" name="title"><br>
+        Release Date: <input type="date" name="release_date"><br>
+        Genre: <input type="text" name="genre"><br>
+        <button type="button" onclick="insertMovie()">Insert Movie</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+
+    <script>
+        function insertMovie() {
+            fetch('/insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: document.getElementById('title').value,
+                    release_date: document.getElementById('release_date').value,
+                    genre: document.getElementById('genre').value
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/movies.html';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function resetForm() {
+            document.getElementById("insertForm").reset();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- src/public/delete.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Movie</title>
+</head>
+<body>
+    <h1>Delete Movie</h1>
+    <form id="deleteForm">
+        ID: <input type="number" name="id"><br>
+        <button type="button" onclick="deleteMovie()">Delete Movie</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+
+    <script>
+        function deleteMovie() {
+            const id = document.getElementById('id').value;
+            fetch(`/delete/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/movies.html'; 
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function resetForm() {
+            document.getElementById("deleteForm").reset();
+        }
+    </script>
+</body>
+</html>
